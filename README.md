@@ -1,6 +1,5 @@
 # TGC9-FrontEnd-Assignment2
 
-# ASSIGNMENT 2
 Reactive Frontend Frameworks and RESTful API Development
 
 ## OBJECTIVE
