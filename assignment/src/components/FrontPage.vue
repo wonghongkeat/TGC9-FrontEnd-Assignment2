@@ -1,11 +1,19 @@
 <template>
-  <div>
-    <h1>Shoot The Ducks!</h1>
-    <div v-for="f in scores" v-bind:key="f._id">
-      <ul>
-        <li>name: {{ f.name }}</li>
-        <li>score: {{ f.score }}</li>
-      </ul>
+  <div class='assignment'>
+    <div>
+      <h1>Shoot The Ducks!</h1>
+    </div>
+    <div>
+    <div class="highscore">
+      <h2 id="highscore">Highscore</h2>
+      <div v-for="f in scores" v-bind:key="f._id">
+        <ul>
+          <li>{{ f.name }}</li>
+          <li>{{ f.score }}</li>
+          <button>x</button>
+        </ul>
+      </div>
+    </div>
     </div>
     <div>
       <button>New game</button>
@@ -48,5 +56,29 @@ button {
   width: 80px;
   height: 50px;
 }
+
+.highscore {
+  width: 50vw;
+  height: 50vh;
+  left: 50%;
+  top: 50%;
+  border: black solid 2px;
+   
+}
+
+#highscore {
+  text-align: center;
+  font-family: "VT323", monospace;
+  font-size: 35px;
+}
+
+ul li {
+  list-style-type: none;
+}
+
+.assignment{
+    text-align: center;
+}
 </style>
+
 
