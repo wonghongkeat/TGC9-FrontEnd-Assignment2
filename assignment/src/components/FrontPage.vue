@@ -7,6 +7,10 @@
           <li>score: {{f.score}}</li>
       </ul>
   </div>
+  <div>
+      <button>New game</button>
+      <button>Highscore</button>
+      </div>
   </div>
 </template>
 
@@ -39,9 +43,15 @@ export default {
 
 h1{
     text-align: center;
-    font-weight: bold;
     font-family: 'VT323', monospace;
     font-size: 80px;
+}
+
+button{
+font-family: 'VT323', monospace;
+font-size: 15px;
+width: 80px;
+height: 50px;
 }
 </style>
 
