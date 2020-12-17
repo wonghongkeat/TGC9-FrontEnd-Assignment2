@@ -45,7 +45,7 @@ The following will be added into the website:
 * Highscore
 * New score input
 
-## features
+## Features
 In this assignment, I will be implenting a database from MongoDB to store the highscores of everyone that has played the game. Using Express and RESTful API, we will be able to see the scores history of past players and who has the highest score.
 Hoping to bring the players a sense of accomplishment and achievments after they leave the website.
 
