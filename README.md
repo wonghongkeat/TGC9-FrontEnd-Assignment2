@@ -26,9 +26,44 @@ As this site is set out for either skills training or casual/leisure gaming, the
 To enable the site to be brightly colored and striking visual. Allow easy navigations in the website and in game. To let the users have a clear direction of the interface and the gameplay.
 
 # Scope
+## Functional
+Through this website, the user can hope to improve their aiming and clicking skills. 
+
+User who just want to get pass time will find this site simple and a great way to help them destress.
+
+## Content
+As this is a single page application website, the content will be straight forward and simple. The main idea of the website is to let user dive right into the game and start playing straight away.
+
+Some mandatory requirements will include:
+* A button for 'New Game'
+* A button for 'Highscore'
+* Way for the user to input their score after every game.
+* Access to the top 10 high scores played on the game.
+
+## Content requirements
+The following will be added into the website:
+* Highscore
+* New score input
+
+## features
+In this assignment, I will be implenting a database from MongoDB to store the highscores of everyone that has played the game. Using Express and RESTful API, we will be able to see the scores history of past players and who has the highest score.
+Hoping to bring the players a sense of accomplishment and achievments after they leave the website.
 
 # Skeleton
 The sekeleton of the game page will be a single page application using a reactive framework, VueJs.
 
-# features
+Although it is a single page layout website, there will still be buttons for the users to click and interact with the page.  
+
+The constant display and graphics on the website will be the title, which will always be shown and in the same position no matter what the users click from the website.
+
+<img src='images/2skeleton1.jpg'/>skeleton1
+<hr>
+<img src='images/2skeleton2.jpg'/>skeleton2
+<hr>
+<img src='images/2skeleton3.jpg'/>skeleton3
+<hr>
+
+
+
+
 

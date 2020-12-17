@@ -1,57 +1,52 @@
 <template>
   <div>
-      <h1>Shoot The Ducks!</h1>
-  <div v-for='f in scores' v-bind:key='f._id'>
+    <h1>Shoot The Ducks!</h1>
+    <div v-for="f in scores" v-bind:key="f._id">
       <ul>
-          <li>name: {{f.name}}</li>
-          <li>score: {{f.score}}</li>
+        <li>name: {{ f.name }}</li>
+        <li>score: {{ f.score }}</li>
       </ul>
-  </div>
-  <div>
+    </div>
+    <div>
       <button>New game</button>
       <button>Highscore</button>
-      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 
 export default {
-      created:async function(){
-        let response = await axios.get('https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-us03.gitpod.io/');
-        this.scores = response.data;
-    },
+  created: async function () {
+    let response = await axios.get(
+      "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-us03.gitpod.io/"
+    );
+    this.scores = response.data;
+  },
 
-
-    data: function(){
-        return{
-            'scores':[]
-        }
-    },
-
-  
-
-}
-
-
-
+  data: function () {
+    return {
+      scores: [],
+    };
+  },
+};
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
 
-h1{
-    text-align: center;
-    font-family: 'VT323', monospace;
-    font-size: 80px;
+h1 {
+  text-align: center;
+  font-family: "VT323", monospace;
+  font-size: 80px;
 }
 
-button{
-font-family: 'VT323', monospace;
-font-size: 15px;
-width: 80px;
-height: 50px;
+button {
+  font-family: "VT323", monospace;
+  font-size: 15px;
+  width: 80px;
+  height: 50px;
 }
 </style>
 
