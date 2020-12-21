@@ -21,9 +21,14 @@ export default {
     data: function(){
         return {
             board: [
-                [false,false,false,false,false],
-                [false,false,false,false,false],
-                [false,false,false,false,false]
+                // [false,false,false,false,false],
+                // [false,false,false,false,false],
+                // [false,false,false,false,false]
+
+                ["", "", "","",""],
+                ["", "", "","",""],
+                ["", "", "","",""]
+
             ],
             // display: false,
             randomNumber: 0,
@@ -51,7 +56,7 @@ table{
     text-align: center;
 }
 td{
-    border: 2px red solid;
+    border-bottom: 10px green dashed;
     width: 150px;
     height: 150px;
 }
