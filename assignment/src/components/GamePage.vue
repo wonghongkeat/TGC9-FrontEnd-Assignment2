@@ -1,10 +1,14 @@
 <template>
   <div>
+      <button v-on:click='randomStart'>start</button>
+      <p>{{randomNumber}}</p>
+      <p>{{randomNumber2}}</p>
+      <p>points:{{points}}</p>
       <table>
           <tr v-for='(r, row) in board' v-bind:key='row'>
               <td v-for='(c, column) in r' v-bind:key='row*3+column'>
                   {{c}}
-                  <img src='./duck.png' v-show='display'/>
+                  <img src='./duck.png' v-show='board[row][column]' v-on:click='randomStart'/>
               </td>
           </tr>
           </table>
@@ -17,14 +21,27 @@ export default {
     data: function(){
         return {
             board: [
-                [1,2,3,4,5],
-                [6,7,8,9,10],
-                [11,12,13,14,15]
+                [false,false,false,false,false],
+                [false,false,false,false,false],
+                [false,false,false,false,false]
             ],
-            display: true
+            // display: false,
+            randomNumber: 0,
+            randomNumber2: 0,
+            points: 0
            
         }
     },
+    methods: {
+        randomStart: function(){
+            let Xrow = parseInt(Math.random() * (3 - 0) + 0)
+            this.randomNumber = Xrow
+            let Xcolumn = parseInt(Math.random() * (5 - 0) + 0)
+            this.randomNumber2 = Xcolumn
+            this.board[Xrow][Xcolumn] = true;
+            this.points += 1
+        }
+    }
 
 }
 </script>

@@ -6,6 +6,7 @@
        <div>
       <button>New game</button>
       <button>Highscore</button>
+      
     </div>
     <div>
     <div class="highscore">
