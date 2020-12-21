@@ -3,21 +3,21 @@
     <div>
       <h1>Shoot The Ducks!</h1>
     </div>
+       <div>
+      <button>New game</button>
+      <button>Highscore</button>
+    </div>
     <div>
     <div class="highscore">
       <h2 id="highscore">Highscore</h2>
       <div v-for="f in scores" v-bind:key="f._id">
         <ul>
           <li>{{ f.name }}</li>
-          <li>{{ f.score }}</li>
+          <li>score: {{ f.level[1] }}</li>
           <button>x</button>
         </ul>
       </div>
     </div>
-    </div>
-    <div>
-      <button>New game</button>
-      <button>Highscore</button>
     </div>
   </div>
 </template>
@@ -57,14 +57,7 @@ button {
   height: 50px;
 }
 
-.highscore {
-  width: 50vw;
-  height: 50vh;
-  left: 50%;
-  top: 50%;
-  border: black solid 2px;
-   
-}
+
 
 #highscore {
   text-align: center;
