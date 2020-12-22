@@ -7,7 +7,7 @@
       <table>
           <tr v-for='(r, row) in board' v-bind:key='row'>
               <td v-for='(c, column) in r' v-bind:key='row*3+column'>
-                  <img src='./duck.png' v-on:click='randomStart' v-show='board[row][column]'/>
+                  <img src='./duck.png' v-on:click='toDelete' v-show='board[row][column]'/>
               </td>
           </tr>
           </table>
@@ -29,7 +29,7 @@ export default {
             randomNumber: 0,
             randomNumber2: 0,
             points: 0,
-            isHidden: false
+
            
         }
     },
@@ -43,8 +43,18 @@ export default {
             // if(this.board[Xrow][Xcolumn]==true){
             //      this.board[Xrow][Xcolumn] = false
             // }
-        
         },
+        toDelete: function(){
+             for (let r of this.board){
+                for (let c of r){
+                    if(c === true){
+                        c = false
+                        break
+                    }
+             }
+        }
+                 this.randomStart()
+    }
     }
 }
 </script>
