@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-      <!-- <FrontPage/>
-      <GamePage/> -->
-      <Test/>
+      <!-- <FrontPage/> -->
+      <GamePage/>
+      <!-- <Test/> -->
 
     
   </div>
@@ -11,8 +11,8 @@
 <script>
 
 // import FrontPage from "./components/FrontPage"
-// import GamePage from "./components/GamePage"
-import Test from "./components/Test"
+import GamePage from "./components/GamePage"
+// import Test from "./components/Test"
 
 
 
@@ -20,8 +20,9 @@ import Test from "./components/Test"
 export default {
   name: 'App',
   components: {
-    //   FrontPage, GamePage, 
-    Test
+    //   FrontPage, 
+      GamePage, 
+    // Test
 
     
   }
