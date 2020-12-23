@@ -1,12 +1,10 @@
 <template>
   <div>
-    <button v-on:click="randomStart">start</button>
+    <button v-on:click="randomStart" :disabled="startDisabled">start</button>
+    <button v-on:click="gameEnd" :disabled="endDisabled">End</button>
     <p>{{ randomNumber }}</p>
     <p>{{ randomNumber2 }}</p>
     <p>points:{{ points }}</p>
-    <button v-on:click="countDown" class="button">
-      {{ timer }}
-    </button>
     <table>
       <tr v-for="(r, row) in board" v-bind:key="row">
         <td v-for="(c, column) in r" v-bind:key="row * 3 + column">
@@ -26,37 +24,40 @@
 export default {
   data: function () {
     return {
-      timer : 0,
+
       board: [
         ["", "", "", "", ""],
         ["", "", "", "", ""],
         ["", "", "", "", ""],
       ],
-
       randomNumber: 0,
       randomNumber2: 0,
       points: 0,
-
- 
+      startDisabled: false,
+      endDisabled: true,
     };
   },
   methods: {
-    countDown: function () {
-   
-      if (this.timer < 10) {
-        setTimeout(() => {
-          this.timer += 1;
-          this.countDown();
-        }, 1000);
-      }
-    
+    gameEnd: function () {
+      alert("you score" + " " + this.points + " " + "points");
+      this.startDisabled = false;
+      this.endDisabled = true;
+      this.board = [
+        ["", "", "", "", ""],
+        ["", "", "", "", ""],
+        ["", "", "", "", ""],
+      ];
+      this.points = 0;
     },
+
     randomStart: function () {
       let Xrow = parseInt(Math.random() * (3 - 0) + 0);
       this.randomNumber = Xrow;
       let Xcolumn = parseInt(Math.random() * (5 - 0) + 0);
       this.randomNumber2 = Xcolumn;
       this.board[Xrow][Xcolumn] = true;
+      this.startDisabled = true;
+      this.endDisabled = false;
     },
     toDelete: function () {
       for (let r = 0; r < this.board.length; r++) {
@@ -87,12 +88,5 @@ td {
 img {
   width: 100px;
   height: 100px;
-}
-
-.button{
-    width: 100px;
-    height:50px;
-    font-weight: bold;
-    font-size: 2rem;
 }
 </style>
