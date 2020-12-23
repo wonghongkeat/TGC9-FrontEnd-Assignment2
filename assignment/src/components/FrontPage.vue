@@ -14,13 +14,17 @@
           <ul>
             <li>level: {{ f.level }}</li>
             <li>
-                <ul v-for="p in f.player" v-bind:key="p.player">
-                    <li> {{p.name}}: {{p.score}}</li>
-                    </ul>
+              <ul v-for="p in f.player" v-bind:key="p.player">
+                <li>{{ p.name }}: {{ p.score }}</li>
+              </ul>
             </li>
-            <button>x</button>
           </ul>
         </div>
+      </div>
+      <div>
+        <select>
+          <option v-for="f in levels" v-bind:key="f._id">{{ f.level }}</option>
+        </select>
       </div>
     </div>
   </div>
@@ -40,7 +44,6 @@ export default {
   data: function () {
     return {
       levels: [],
-
     };
   },
 };
