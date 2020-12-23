@@ -1,21 +1,21 @@
 <template>
   <div id="app">
-    <!-- <FrontPage/> -->
-    <GamePage />
+    <FrontPage/>
+    <!-- <GamePage /> -->
     <!-- <Test/> -->
   </div>
 </template>
 
 <script>
-// import FrontPage from "./components/FrontPage"
-import GamePage from "./components/GamePage";
+import FrontPage from "./components/FrontPage"
+// import GamePage from "./components/GamePage";
 // import Test from "./components/Test"
 
 export default {
   name: "App",
   components: {
-    //   FrontPage,
-    GamePage,
+      FrontPage,
+    // GamePage,
     // Test
   },
 };

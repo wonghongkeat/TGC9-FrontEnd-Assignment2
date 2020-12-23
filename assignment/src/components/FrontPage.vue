@@ -10,10 +10,14 @@
     <div>
       <div class="highscore">
         <h2 id="highscore">Highscore</h2>
-        <div v-for="f in scores" v-bind:key="f._id">
+        <div v-for="f in levels" v-bind:key="f._id">
           <ul>
-            <li>{{ f.name }}</li>
-            <li>score: {{ f.level[1] }}</li>
+            <li>level: {{ f.level }}</li>
+            <li>
+                <ul v-for="p in f.player" v-bind:key="p.player">
+                    <li> {{p.name}}: {{p.score}}</li>
+                    </ul>
+            </li>
             <button>x</button>
           </ul>
         </div>
@@ -30,12 +34,13 @@ export default {
     let response = await axios.get(
       "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-us03.gitpod.io/"
     );
-    this.scores = response.data;
+    this.levels = response.data;
   },
 
   data: function () {
     return {
-      scores: [],
+      levels: [],
+
     };
   },
 };
