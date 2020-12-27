@@ -58,19 +58,20 @@ export default {
       this.randomStart();
       this.points += 1;
     },
-  },
+  
 
-  gameEnd: function () {
-    alert("you score" + " " + this.points + " " + "points");
-    this.startDisabled = false;
-    this.endDisabled = true;
-    this.board = [
-      ["", "", "", "", ""],
-      ["", "", "", "", ""],
-      ["", "", "", "", ""],
-    ];
-    this.points = 0;
-  },
+    gameEnd: function () {
+        alert("you score" + " " + this.points + " " + "points");
+        this.startDisabled = false;
+        this.endDisabled = true;
+        this.board = [
+        ["", "", "", "", ""],
+        ["", "", "", "", ""],
+        ["", "", "", "", ""],
+        ];
+        this.points = 0;
+    },
+    },
 };
 </script>
 

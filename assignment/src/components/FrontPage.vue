@@ -27,13 +27,21 @@
         </select>
       </div>
     </div>
+    <div>
+      <GamePage/>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import GamePage from "./GamePage";
 
 export default {
+  components: {
+    GamePage
+  },
+
   created: async function () {
     let response = await axios.get(
       "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-us03.gitpod.io/"
