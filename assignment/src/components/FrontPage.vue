@@ -8,51 +8,27 @@
       <button v-on:click="highScore">Highscore</button>
       <button v-on:click='cancel'> X </button>
     </div>
+  
     <div>
-      <div class="highscore" v-if="gameState=='highScore'">
-        <h2 id="highscore">Highscore</h2>
-        <div v-for="f in levels" v-bind:key="f._id">
-          <ul>
-            <li>level: {{ f.level }}</li>
-            <li>
-              <ul v-for="p in f.player" v-bind:key="p.player">
-                <li>{{ p.name }}: {{ p.score }}</li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div>
-        <select>
-          <option v-for="f in levels" v-bind:key="f._id">{{ f.level }}</option>
-        </select>
-      </div>
-    </div>
-    <div>
+        <HighScore v-if="gameState=='highScore'"/>
       <GamePage v-if="gameState=='startGame'"/>
     </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
+import HighScore from './HighScore';
 import GamePage from "./GamePage";
 
 export default {
   components: {
-    GamePage
+    GamePage, HighScore
   },
 
-  created: async function () {
-    let response = await axios.get(
-      "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-us03.gitpod.io/"
-    );
-    this.levels = response.data;
-  },
-
+  
   data: function () {
     return {
-      levels: [],
+ 
       gameState: ""
     };
   },
@@ -87,15 +63,6 @@ button {
   height: 50px;
 }
 
-#highscore {
-  text-align: center;
-  font-family: "VT323", monospace;
-  font-size: 35px;
-}
-
-ul li {
-  list-style-type: none;
-}
 
 .assignment {
   text-align: center;
