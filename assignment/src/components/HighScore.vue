@@ -1,10 +1,8 @@
 <template>
   <div>
-   
-
-        <div>
+    <div>
       <div class="highscore">
-    <!-- <button v-on:click='levelOne'> Level 1</button>
+        <!-- <button v-on:click='levelOne'> Level 1</button>
       <button v-on:click='levelTwo'> Level 2</button>
       <button v-on:click='levelThree'> Level 3</button> -->
         <h2 id="highscore">Highscore</h2>
@@ -32,21 +30,18 @@
 import axios from "axios";
 
 export default {
-   created: async function () {
+  created: async function () {
     let response = await axios.get(
       "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-us03.gitpod.io/"
     );
     this.levels = response.data;
   },
-   data: function () {
+  data: function () {
     return {
       levels: [],
-   
     };
-   }
-
-}
-
+  },
+};
 </script>
 
 <style>

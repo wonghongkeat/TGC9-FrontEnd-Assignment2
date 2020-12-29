@@ -4,6 +4,7 @@
     <button v-on:click="gameEnd" :disabled="endDisabled">End</button>
     <p>{{ randomNumber }}</p>
     <p>{{ randomNumber2 }}</p>
+    <h2> Player: {{playerName}}</h2>
     <p>points:{{ points }}</p>
     <table>
       <tr v-for="(r, row) in board" v-bind:key="row">
@@ -31,10 +32,18 @@ export default {
       randomNumber: 0,
       randomNumber2: 0,
       points: 0,
+      playerScore:{
+          name: "",
+          score: ""
+      },  
       startDisabled: false,
-      endDisabled: true,
-    };
+      endDisabled: true
+    }
   },
+  props:['playerName'],
+
+
+
   methods: {
     randomStart: function () {
       let Xrow = parseInt(Math.random() * (3 - 0) + 0);
@@ -58,20 +67,21 @@ export default {
       this.randomStart();
       this.points += 1;
     },
-  
 
     gameEnd: function () {
-        alert("you score" + " " + this.points + " " + "points");
-        this.startDisabled = false;
-        this.endDisabled = true;
-        this.board = [
+      alert(this.playerName + " " + "score" + " " + this.points + " " + "points");
+      this.startDisabled = false;
+      this.endDisabled = true;
+      this.playerScore.name = this.playerName
+      this.playerScore.score = this.points
+      this.board = [
         ["", "", "", "", ""],
         ["", "", "", "", ""],
         ["", "", "", "", ""],
-        ];
-        this.points = 0;
+      ];
+      this.points = 0;
     },
-    },
+  },
 };
 </script>
 
