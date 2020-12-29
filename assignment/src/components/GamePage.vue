@@ -74,6 +74,7 @@ export default {
       this.endDisabled = true;
       this.playerScore.name = this.playerName;
       this.playerScore.score = this.points;
+      this.playerName = ""
       this.board = [
         ["", "", "", "", ""],
         ["", "", "", "", ""],

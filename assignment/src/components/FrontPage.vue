@@ -37,10 +37,10 @@ export default {
   methods: {
     newGame: function () {
       this.playerName = prompt("Please Enter You name e.g XXX");
-      if(this.playerName === "" || this.playerName.length>3){
-          alert("please enter valid input")
-      }else {
-          this.gameState = "startGame";
+      if (this.playerName === "" || this.playerName.length < 3 || this.playerName.length>3) {
+        alert("please enter valid input");
+      } else {
+        this.gameState = "startGame";
       }
     },
     highScore: function () {
