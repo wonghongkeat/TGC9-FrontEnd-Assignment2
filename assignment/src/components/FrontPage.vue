@@ -30,14 +30,18 @@ export default {
   data: function () {
     return {
       gameState: "",
-      playerName: ""
+      playerName: "",
     };
   },
 
   methods: {
     newGame: function () {
-      this.gameState = "startGame";
-      this.playerName = prompt("Please Enter You name e.g XXX")
+      this.playerName = prompt("Please Enter You name e.g XXX");
+      if(this.playerName === "" || this.playerName.length>3){
+          alert("please enter valid input")
+      }else {
+          this.gameState = "startGame";
+      }
     },
     highScore: function () {
       this.gameState = "highScore";
