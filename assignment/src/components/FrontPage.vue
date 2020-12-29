@@ -4,11 +4,12 @@
       <h1>Shoot The Ducks!</h1>
     </div>
     <div>
-      <button>New game</button>
-      <button>Highscore</button>
+      <button v-on:click="newGame">New game</button>
+      <button v-on:click="highScore">Highscore</button>
+      <button v-on:click='cancel'> X </button>
     </div>
     <div>
-      <div class="highscore">
+      <div class="highscore" v-if="gameState=='highScore'">
         <h2 id="highscore">Highscore</h2>
         <div v-for="f in levels" v-bind:key="f._id">
           <ul>
@@ -28,7 +29,7 @@
       </div>
     </div>
     <div>
-      <GamePage/>
+      <GamePage v-if="gameState=='startGame'"/>
     </div>
   </div>
 </template>
@@ -52,8 +53,21 @@ export default {
   data: function () {
     return {
       levels: [],
+      gameState: ""
     };
   },
+
+  methods: {
+      newGame: function(){
+          this.gameState="startGame"
+      },
+      highScore: function(){
+          this.gameState="highScore"
+      },
+      cancel: function(){
+          this.gameState=""
+      }
+  }
 };
 </script>
 
