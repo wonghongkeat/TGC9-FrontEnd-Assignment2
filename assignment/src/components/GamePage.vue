@@ -22,6 +22,7 @@
 
 <script>
 export default {
+
   data: function () {
     return {
       board: [
@@ -70,6 +71,7 @@ export default {
       alert(
         this.playerName + " " + "score" + " " + this.points + " " + "points"
       );
+      
       this.startDisabled = false;
       this.endDisabled = true;
       this.playerScore.name = this.playerName;
