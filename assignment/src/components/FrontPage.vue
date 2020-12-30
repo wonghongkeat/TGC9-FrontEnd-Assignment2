@@ -9,7 +9,6 @@
       <button v-on:click="highScore">Highscore</button>
       <button v-on:click="cancel">X</button>
     </div>
-
     <div>
       <HighScore v-if="gameState == 'highScore'" />
       <GamePage :playerName="playerName" v-if="gameState == 'startGame'" />
@@ -37,7 +36,11 @@ export default {
   methods: {
     newGame: function () {
       this.playerName = prompt("Please Enter You name e.g XXX");
-      if (this.playerName === "" || this.playerName.length < 3 || this.playerName.length>3) {
+      if (
+        this.playerName === "" ||
+        this.playerName.length < 3 ||
+        this.playerName.length > 3
+      ) {
         alert("please enter valid input");
       } else {
         this.gameState = "startGame";

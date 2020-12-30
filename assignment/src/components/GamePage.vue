@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Levels />
     <button v-on:click="randomStart" :disabled="startDisabled">start</button>
     <button v-on:click="gameEnd" :disabled="endDisabled">End</button>
     <p>{{ randomNumber }}</p>
@@ -21,7 +22,12 @@
 </template>
 
 <script>
+import Levels from "./Levels";
+
 export default {
+  components: {
+    Levels,
+  },
 
   data: function () {
     return {
@@ -71,12 +77,12 @@ export default {
       alert(
         this.playerName + " " + "score" + " " + this.points + " " + "points"
       );
-      
+
       this.startDisabled = false;
       this.endDisabled = true;
       this.playerScore.name = this.playerName;
       this.playerScore.score = this.points;
-      this.playerName = ""
+      this.playerName = "";
       this.board = [
         ["", "", "", "", ""],
         ["", "", "", "", ""],

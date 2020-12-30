@@ -7,11 +7,10 @@
         <button v-on:click="levelThree">Level 3</button>
         <h2 id="highscore">Highscore</h2>
         <div v-for="f in filteredLevel" v-bind:key="f._id">
-         <h2>level: {{ f.level }}</h2>
-              <ul v-for="p in f.player" v-bind:key="p.player">
-                <li>{{ p.name }}: {{ p.score }}</li>
-              </ul>
-    
+          <h2>level: {{ f.level }}</h2>
+          <ul v-for="p in f.player" v-bind:key="p.player">
+            <li>{{ p.name }}: {{ p.score }}</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -50,17 +49,15 @@ export default {
     },
   },
 
- computed: {
-        filteredLevel:function() {
-            let filtered = this.levels.filter((eachLevel)=>{
-                return eachLevel.level.includes(this.level)
-            })
+  computed: {
+    filteredLevel: function () {
+      let filtered = this.levels.filter((eachLevel) => {
+        return eachLevel.level.includes(this.level);
+      });
 
-            return filtered;
-        }
-    }
-
-
+      return filtered;
+    },
+  },
 };
 </script>
 
