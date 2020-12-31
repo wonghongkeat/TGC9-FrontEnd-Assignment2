@@ -20,7 +20,7 @@ git commit -m 'deploy'
 
 
 # if you are deploying to https://<USERNAME>.github.io/<REPO>
-git remote add origin <https://github.com/wonghongkeat/TGC9-FrontEnd-Assignment2.git>.git
+git remote add origin https://github.com/wonghongkeat/TGC9-FrontEnd-Assignment2.git
 git push --set-upstream origin gh-pages
 
 cd -
