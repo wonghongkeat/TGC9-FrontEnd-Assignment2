@@ -86,7 +86,7 @@ export default {
         console.log(this.time)
       this.time = setInterval(() => {
         this.time -= 1;
-           if (this.time === 0) {
+        if (this.time === 0) {
           clearInterval(this.timer());
         }
       }, 1000);
