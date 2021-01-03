@@ -1,13 +1,24 @@
 <template>
   <div>
-    <Levels />
-    <button v-on:click="randomStart" :disabled="startDisabled">start</button>
-    <button v-on:click="gameEnd" :disabled="endDisabled">End</button>
+    <GameLevels :playerScore="playerScore" @diffLevel="diffTime" @levelSelected='levelSelection' />
+    <button 
+        v-if='levelSelected'
+      v-on:click="
+         timer();
+         randomStart();
+       
+      "
+      :disabled="startDisabled"
+    >
+      start
+    </button>
+    <button v-on:click="gameEnd" :disabled="endDisabled" v-if="levelSelected">End</button>
     <p>{{ randomNumber }}</p>
     <p>{{ randomNumber2 }}</p>
-    <h2>Player: {{ playerName }}</h2>
+    <h2 >Player: {{ playerName }}</h2>
+    <p  >time: {{ time }}</p>
     <p>points:{{ points }}</p>
-    <table>
+    <table v-if="levelSelected">
       <tr v-for="(r, row) in board" v-bind:key="row">
         <td v-for="(c, column) in r" v-bind:key="row * 3 + column">
           <img
@@ -22,11 +33,11 @@
 </template>
 
 <script>
-import Levels from "./Levels";
+import GameLevels from "./GameLevels";
 
 export default {
   components: {
-    Levels,
+    GameLevels,
   },
 
   data: function () {
@@ -45,11 +56,18 @@ export default {
       },
       startDisabled: false,
       endDisabled: true,
+      levelSelected: false,
+      time: null,
     };
   },
   props: ["playerName"],
 
   methods: {
+
+      levelSelection:function(levelSelection){
+          this.levelSelected= levelSelection
+      },
+
     randomStart: function () {
       let Xrow = parseInt(Math.random() * (3 - 0) + 0);
       this.randomNumber = Xrow;
@@ -58,6 +76,20 @@ export default {
       this.board[Xrow][Xcolumn] = true;
       this.startDisabled = true;
       this.endDisabled = false;
+    },
+
+    diffTime: function (gameLevelTime) {
+      this.time = gameLevelTime;
+    },
+
+    timer: function () {
+        console.log(this.time)
+      this.time = setInterval(() => {
+        this.time -= 1;
+           if (this.time === 0) {
+          clearInterval(this.timer());
+        }
+      }, 1000);
     },
 
     toDelete: function () {
@@ -74,6 +106,7 @@ export default {
     },
 
     gameEnd: function () {
+      
       alert(
         this.playerName + " " + "score" + " " + this.points + " " + "points"
       );
