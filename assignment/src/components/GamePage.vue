@@ -19,11 +19,9 @@
     <button v-on:click="gameEnd" :disabled="endDisabled" v-if="levelSelected">
       End
     </button>
-    <p>{{ randomNumber }}</p>
-    <p>{{ randomNumber2 }}</p>
     <h2>Player: {{ playerName }}</h2>
-    <p>time: {{ time }}</p>
-    <p>points:{{ points }}</p>
+    <h2>time: {{ time }}</h2>
+    <h2>points:{{ points }}</h2>
     <table v-if="levelSelected">
       <tr v-for="(r, row) in board" v-bind:key="row">
         <td v-for="(c, column) in r" v-bind:key="row * 3 + column">
@@ -61,6 +59,7 @@ export default {
         name: "",
         score: "",
       },
+   
       startDisabled: false,
       endDisabled: true,
       levelSelected: false,
@@ -78,7 +77,7 @@ export default {
       this.playerScore.score = this.points;
       this.startDisabled = false;
       this.endDisabled = true;
-      this.playerName = "";
+    //   this.playerName = "";
       this.board = [
         ["", "", "", "", ""],
         ["", "", "", "", ""],

@@ -9,11 +9,11 @@
       <button v-on:click="highScore">Highscore</button>
       <button v-on:click="cancel">X</button>
     </div>
-    <br/>
+    <br />
     <div>
       <HighScore v-if="gameState == 'highScore'" />
-      <br/>
-      <GamePage :playerName="playerName" v-if="gameState == 'startGame'" />
+      <br />
+      <GamePage :playerName="playerName" v-if="gameState == 'startGame'"/>
     </div>
   </div>
 </template>
@@ -22,10 +22,7 @@
 import HighScore from "./HighScore";
 import GamePage from "./GamePage";
 
-
 export default {
-
-
   components: {
     GamePage,
     HighScore,
@@ -33,12 +30,11 @@ export default {
 
   data: function () {
     return {
-        // levels: [],
+      // levels: [],
       gameState: "",
       playerName: "",
     };
   },
-
   methods: {
     newGame: function () {
       this.playerName = prompt("Please Enter You name e.g XXX");
