@@ -17,6 +17,7 @@ created: async function () {
       "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-us03.gitpod.io/"
     );
     this.levels = response.data;
+
 },
 
 data: function(){
@@ -33,16 +34,19 @@ props: ["playerScore"],
 methods: {
     level1: function(){
         this.level = this.levels[0]._id
+        this.$emit('selectedLevel', this.level)
         this.$emit('diffLevel', this.gameLevelTime = 15)
         this.$emit('levelSelected', this.levelSelection = true)
     },
      level2: function(){
         this.level = this.levels[1]._id
+        this.$emit('selectedLevel', this.level)
         this.$emit('diffLevel', this.gameLevelTime = 10)
         this.$emit('levelSelected', this.levelSelection = true)
     },
      level3: function(){
         this.level = this.levels[2]._id
+        this.$emit('selectedLevel', this.level)
         this.$emit('diffLevel', this.gameLevelTime = 5)
         this.$emit('levelSelected', this.levelSelection = true)
     },

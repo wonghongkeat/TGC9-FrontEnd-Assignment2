@@ -4,11 +4,12 @@
       :playerScore="playerScore"
       @diffLevel="diffTime"
       @levelSelected="levelSelection"
+      @selectedLevel="levelId"
     />
     <button
       v-if="levelSelected"
       v-on:click="
-        timer();
+       
         randomStart();
       "
       :disabled="startDisabled"
@@ -39,6 +40,7 @@
 
 <script>
 import GameLevels from "./GameLevels";
+import axios from "axios";
 
 export default {
   components: {
@@ -64,11 +66,16 @@ export default {
       levelSelected: false,
       time: null,
       intervalId: null,
+      level: ""
     };
   },
   props: ["playerName"],
 
   methods: {
+      levelId:function(level){
+          this.level = level
+      },
+
     levelSelection: function (levelSelection) {
       this.levelSelected = levelSelection;
     },
@@ -87,29 +94,7 @@ export default {
       this.time = gameLevelTime;
     },
 
-    timer: function () {
-      this.intervalId = setInterval(() => {
-        if (this.time === 1) {
-          clearInterval(this.intervalId);
-            this.levelSelected = false;
-            alert(
-              this.playerName + " " + "score" + " " + this.points + " " + "points"
-            );
-            this.playerScore.name = this.playerName;
-            this.playerScore.score = this.points;
-            this.startDisabled = false;
-            this.endDisabled = true;
-            this.playerName = "";
-            this.board = [
-              ["", "", "", "", ""],
-              ["", "", "", "", ""],
-              ["", "", "", "", ""],
-            ];
-            this.points = 0;
-        }
-        this.time -= 1;
-      }, 1000);
-    },
+
 
     toDelete: function () {
       for (let r = 0; r < this.board.length; r++) {
@@ -124,12 +109,10 @@ export default {
       this.points += 1;
     },
 
-    gameEnd: function () {
+    gameEnd: async function () {
       alert(
         this.playerName + " " + "score" + " " + this.points + " " + "points"
       );
-      clearInterval(this.intervalId);
-      this.time = null;
       this.startDisabled = false;
       this.endDisabled = true;
       this.playerScore.name = this.playerName;
@@ -141,6 +124,11 @@ export default {
         ["", "", "", "", ""],
       ];
       this.points = 0;
+       await axios.patch(
+        "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-us03.gitpod.io/" +
+          this.level,
+        this.playerScore
+      );
     },
   },
 };

@@ -1,76 +1,179 @@
 <template>
   <div>
-    <div>
-      <div class="highscore">
-        <button v-on:click="levelOne">Level 1</button>
-        <button v-on:click="levelTwo">Level 2</button>
-        <button v-on:click="levelThree">Level 3</button>
-        <h2 id="highscore">Highscore</h2>
-        <div v-for="f in levels" v-bind:key="f._id">
-          <ul>
-            <li>level: {{ f.level }}</li>
-            <li>
-              <ul v-for="p in f.player" v-bind:key="p.player">
-                <li>{{ p.name }}: {{ p.score }}</li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
+    <GameLevels
+      :playerScore="playerScore"
+      @diffLevel="diffTime"
+      @levelSelected="levelSelection"
+      @selectedLevel="levelId"
+    />
+    <button
+      v-if="levelSelected"
+      v-on:click="
+       
+        randomStart();
+      "
+      :disabled="startDisabled"
+    >
+      start
+    </button>
+    <button v-on:click="gameEnd" :disabled="endDisabled" v-if="levelSelected">
+      End
+    </button>
+    <p>{{ randomNumber }}</p>
+    <p>{{ randomNumber2 }}</p>
+    <h2>Player: {{ playerName }}</h2>
+    <p>time: {{ time }}</p>
+    <p>points:{{ points }}</p>
+    <table v-if="levelSelected">
+      <tr v-for="(r, row) in board" v-bind:key="row">
+        <td v-for="(c, column) in r" v-bind:key="row * 3 + column">
+          <img
+            src="./duck.png"
+            v-on:click="toDelete"
+            v-show="board[row][column]"
+          />
+        </td>
+      </tr>
+    </table>
   </div>
 </template>
 
 <script>
+import GameLevels from "./GameLevels";
 import axios from "axios";
 
 export default {
-  created: async function () {
-    let response = await axios.get(
-      "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-us03.gitpod.io/"
-    );
-    this.levels = response.data;
+  components: {
+    GameLevels,
   },
+
   data: function () {
     return {
-      levels: [],
+      board: [
+        ["", "", "", "", ""],
+        ["", "", "", "", ""],
+        ["", "", "", "", ""],
+      ],
+      randomNumber: 0,
+      randomNumber2: 0,
+      points: 0,
+      playerScore: {
+        name: "",
+        score: "",
+      },
+      startDisabled: false,
+      endDisabled: true,
+      levelSelected: false,
+      time: null,
+      intervalId: null,
       level: ""
     };
   },
+  props: ["playerName"],
 
-    methods:{
-    levelOne: function(){
-        this.level = "1"
+  methods: {
+      levelId:function(level){
+          this.level = level
+      },
+
+    levelSelection: function (levelSelection) {
+      this.levelSelected = levelSelection;
     },
 
-    levelTwo: function(){
-        this.level = "2"
+    randomStart: function () {
+      let Xrow = parseInt(Math.random() * (3 - 0) + 0);
+      this.randomNumber = Xrow;
+      let Xcolumn = parseInt(Math.random() * (5 - 0) + 0);
+      this.randomNumber2 = Xcolumn;
+      this.board[Xrow][Xcolumn] = true;
+      this.startDisabled = true;
+      this.endDisabled = false;
     },
 
-    levelThree: function(){
-        this.level = "3"
-    }
+    diffTime: function (gameLevelTime) {
+      this.time = gameLevelTime;
+    },
 
-    }
-}
+    // timer: function () {
+    //     if(this.time != 0){
+    //   this.intervalId = setInterval(() => {
+    //     if (this.time === 0) {
+    //       clearInterval(this.intervalId);
+        
+    //       this.levelSelected = false;
+    //       alert(
+    //         this.playerName + " " + "score" + " " + this.points + " " + "points"
+    //       );
+    //       this.time = null;
+    //       this.playerScore.name = this.playerName;
+    //       this.playerScore.score = this.points;
+    //       this.startDisabled = false;
+    //       this.endDisabled = true;
+    //       this.playerName = "";
+    //       this.board = [
+    //         ["", "", "", "", ""],
+    //         ["", "", "", "", ""],
+    //         ["", "", "", "", ""],
+    //       ];
+    //       this.points = 0;
+    //     }
+    //     this.time -= 1;
+    //   }, 1000);
+    // }
+    // },
+
+    toDelete: function () {
+      for (let r = 0; r < this.board.length; r++) {
+        for (let c = 0; c < 5; c++) {
+          if (this.board[r][c] === true) {
+            this.$set(this.board[r], c, "");
+            break;
+          }
+        }
+      }
+      this.randomStart();
+      this.points += 1;
+    },
+
+    gameEnd: async function () {
+      alert(
+        this.playerName + " " + "score" + " " + this.points + " " + "points"
+      );
+      await axios.patch(
+        "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-us03.gitpod.io/" +
+          this.level,
+        this.playerScore
+      );
+    //    clearInterval(this.intervalId);
+    //   this.time = null;
+      this.startDisabled = false;
+      this.endDisabled = true;
+      this.playerScore.name = this.playerName;
+      this.playerScore.score = this.points;
+      this.playerName = "";
+      this.board = [
+        ["", "", "", "", ""],
+        ["", "", "", "", ""],
+        ["", "", "", "", ""],
+      ];
+      this.points = 0;
+    },
+  },
+};
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
-button {
-  font-family: "VT323", monospace;
-  font-size: 15px;
-  width: 80px;
-  height: 50px;
-}
-
-#highscore {
+table {
   text-align: center;
-  font-family: "VT323", monospace;
-  font-size: 35px;
+}
+td {
+  border-bottom: 10px green dashed;
+  width: 150px;
+  height: 150px;
 }
 
-ul li {
-  list-style-type: none;
+img {
+  width: 100px;
+  height: 100px;
 }
 </style>
