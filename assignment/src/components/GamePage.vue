@@ -6,7 +6,6 @@
       v-on:click="
          timer();
          randomStart();
-       
       "
       :disabled="startDisabled"
     >
@@ -58,6 +57,7 @@ export default {
       endDisabled: true,
       levelSelected: false,
       time: null,
+      intervalId:null
     };
   },
   props: ["playerName"],
@@ -83,13 +83,13 @@ export default {
     },
 
     timer: function () {
-        console.log(this.time)
-      this.time = setInterval(() => {
-        this.time -= 1;
-        if (this.time === 0) {
-          clearInterval(this.timer());
+     this.intervalId = setInterval(() => {
+          if (this.time === 1) {
+          clearInterval(this.intervalId);
         }
+        this.time -= 1;
       }, 1000);
+      
     },
 
     toDelete: function () {
