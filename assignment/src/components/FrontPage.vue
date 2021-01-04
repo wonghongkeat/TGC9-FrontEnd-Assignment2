@@ -13,7 +13,7 @@
     <div>
       <HighScore v-if="gameState == 'highScore'" />
       <br />
-      <GamePage :playerName="playerName" v-if="gameState == 'startGame'"/>
+      <GamePage :playerName="playerName" v-if="gameState == 'startGame'" />
     </div>
   </div>
 </template>

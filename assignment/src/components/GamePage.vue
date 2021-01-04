@@ -6,19 +6,6 @@
       @levelSelected="levelSelection"
       @selectedLevel="levelId"
     />
-    <button
-      v-if="levelSelected"
-      v-on:click="
-        timer();
-        randomStart();
-      "
-      :disabled="startDisabled"
-    >
-      start
-    </button>
-    <button v-on:click="gameEnd" :disabled="endDisabled" v-if="levelSelected">
-      End
-    </button>
     <h2>Player: {{ playerName }}</h2>
     <h2>time: {{ time }}</h2>
     <h2>points:{{ points }}</h2>
@@ -33,6 +20,19 @@
         </td>
       </tr>
     </table>
+    <button
+      v-if="levelSelected"
+      v-on:click="
+        timer();
+        randomStart();
+      "
+      :disabled="startDisabled"
+    >
+      start
+    </button>
+    <button v-on:click="gameEnd" :disabled="endDisabled" v-if="levelSelected">
+      End
+    </button>
   </div>
 </template>
 
@@ -59,7 +59,7 @@ export default {
         name: "",
         score: "",
       },
-   
+
       startDisabled: false,
       endDisabled: true,
       levelSelected: false,
@@ -77,7 +77,7 @@ export default {
       this.playerScore.score = this.points;
       this.startDisabled = false;
       this.endDisabled = true;
-    //   this.playerName = "";
+      //   this.playerName = "";
       this.board = [
         ["", "", "", "", ""],
         ["", "", "", "", ""],
