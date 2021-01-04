@@ -9,7 +9,7 @@
     <button
       v-if="levelSelected"
       v-on:click="
-       
+       timer();
         randomStart();
       "
       :disabled="startDisabled"
@@ -94,33 +94,33 @@ export default {
       this.time = gameLevelTime;
     },
 
-    // timer: function () {
-    //     if(this.time != 0){
-    //   this.intervalId = setInterval(() => {
-    //     if (this.time === 0) {
-    //       clearInterval(this.intervalId);
+    timer: function () {
+        if(this.time != 0){
+      this.intervalId = setInterval(() => {
+        if (this.time === 0) {
+          clearInterval(this.intervalId);
         
-    //       this.levelSelected = false;
-    //       alert(
-    //         this.playerName + " " + "score" + " " + this.points + " " + "points"
-    //       );
-    //       this.time = null;
-    //       this.playerScore.name = this.playerName;
-    //       this.playerScore.score = this.points;
-    //       this.startDisabled = false;
-    //       this.endDisabled = true;
-    //       this.playerName = "";
-    //       this.board = [
-    //         ["", "", "", "", ""],
-    //         ["", "", "", "", ""],
-    //         ["", "", "", "", ""],
-    //       ];
-    //       this.points = 0;
-    //     }
-    //     this.time -= 1;
-    //   }, 1000);
-    // }
-    // },
+          this.levelSelected = false;
+          alert(
+            this.playerName + " " + "score" + " " + this.points + " " + "points"
+          );
+          this.time = null;
+          this.playerScore.name = this.playerName;
+          this.playerScore.score = this.points;
+          this.startDisabled = false;
+          this.endDisabled = true;
+          this.playerName = "";
+          this.board = [
+            ["", "", "", "", ""],
+            ["", "", "", "", ""],
+            ["", "", "", "", ""],
+          ];
+          this.points = 0;
+        }
+        this.time -= 1;
+      }, 1000);
+    }
+    },
 
     toDelete: function () {
       for (let r = 0; r < this.board.length; r++) {
