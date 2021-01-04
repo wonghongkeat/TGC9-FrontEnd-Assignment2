@@ -66,18 +66,37 @@ export default {
       levelSelected: false,
       time: null,
       intervalId: null,
-      level: ""
+      level: "",
     };
   },
   props: ["playerName"],
 
   methods: {
-      levelId:function(level){
-          this.level = level
-      },
+    resetGame: function () {
+      this.time = null;
+      this.playerScore.name = this.playerName;
+      this.playerScore.score = this.points;
+      this.startDisabled = false;
+      this.endDisabled = true;
+      this.playerName = "";
+      this.board = [
+        ["", "", "", "", ""],
+        ["", "", "", "", ""],
+        ["", "", "", "", ""],
+      ];
+      this.points = 0;
+    },
+
+    levelId: function (level) {
+      this.level = level;
+    },
 
     levelSelection: function (levelSelection) {
       this.levelSelected = levelSelection;
+    },
+
+    diffTime: function (gameLevelTime) {
+      this.time = gameLevelTime;
     },
 
     randomStart: function () {
@@ -90,37 +109,27 @@ export default {
       this.endDisabled = false;
     },
 
-    diffTime: function (gameLevelTime) {
-      this.time = gameLevelTime;
-    },
-
     timer: function () {
-        if(this.time != 0){
-      this.intervalId = setInterval(() => {
-        if (this.time === 0) {
-          clearInterval(this.intervalId);
-        
-          this.levelSelected = false;
-          alert(
-            this.playerName + " " + "score" + " " + this.points + " " + "points"
-          );
-          this.time = null;
-          this.playerScore.name = this.playerName;
-          this.playerScore.score = this.points;
-          this.startDisabled = false;
-          this.endDisabled = true;
-          this.playerName = "";
-          this.board = [
-            ["", "", "", "", ""],
-            ["", "", "", "", ""],
-            ["", "", "", "", ""],
-          ];
-          this.points = 0;
-          this.points = 0;
-        }
-        this.time -= 1;
-      }, 1000);
-    }
+      if (this.time != 0) {
+        this.intervalId = setInterval(() => {
+          if (this.time === 0) {
+            clearInterval(this.intervalId);
+
+            this.levelSelected = false;
+            alert(
+              this.playerName +
+                " " +
+                "score" +
+                " " +
+                this.points +
+                " " +
+                "points"
+            );
+            this.resetGame();
+          }
+          this.time -= 1;
+        }, 1000);
+      }
     },
 
     toDelete: function () {
@@ -141,19 +150,8 @@ export default {
         this.playerName + " " + "score" + " " + this.points + " " + "points"
       );
       clearInterval(this.intervalId);
-      this.time= ""
-      this.startDisabled = false;
-      this.endDisabled = true;
-      this.playerScore.name = this.playerName;
-      this.playerScore.score = this.points;
-      this.playerName = "";
-      this.board = [
-        ["", "", "", "", ""],
-        ["", "", "", "", ""],
-        ["", "", "", "", ""],
-      ];
-      this.points = 0;
-       await axios.patch(
+      this.resetGame();
+      await axios.patch(
         "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-us03.gitpod.io/" +
           this.level,
         this.playerScore
