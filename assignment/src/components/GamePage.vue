@@ -1,21 +1,27 @@
 <template>
   <div>
-    <GameLevels :playerScore="playerScore" @diffLevel="diffTime" @levelSelected='levelSelection' />
-    <button 
-        v-if='levelSelected'
+    <GameLevels
+      :playerScore="playerScore"
+      @diffLevel="diffTime"
+      @levelSelected="levelSelection"
+    />
+    <button
+      v-if="levelSelected"
       v-on:click="
-         timer();
-         randomStart();
+        timer();
+        randomStart();
       "
       :disabled="startDisabled"
     >
       start
     </button>
-    <button v-on:click="gameEnd" :disabled="endDisabled" v-if="levelSelected">End</button>
+    <button v-on:click="gameEnd" :disabled="endDisabled" v-if="levelSelected">
+      End
+    </button>
     <p>{{ randomNumber }}</p>
     <p>{{ randomNumber2 }}</p>
-    <h2 >Player: {{ playerName }}</h2>
-    <p  >time: {{ time }}</p>
+    <h2>Player: {{ playerName }}</h2>
+    <p>time: {{ time }}</p>
     <p>points:{{ points }}</p>
     <table v-if="levelSelected">
       <tr v-for="(r, row) in board" v-bind:key="row">
@@ -57,16 +63,15 @@ export default {
       endDisabled: true,
       levelSelected: false,
       time: null,
-      intervalId:null
+      intervalId: null,
     };
   },
   props: ["playerName"],
 
   methods: {
-
-      levelSelection:function(levelSelection){
-          this.levelSelected= levelSelection
-      },
+    levelSelection: function (levelSelection) {
+      this.levelSelected = levelSelection;
+    },
 
     randomStart: function () {
       let Xrow = parseInt(Math.random() * (3 - 0) + 0);
@@ -83,13 +88,27 @@ export default {
     },
 
     timer: function () {
-     this.intervalId = setInterval(() => {
-          if (this.time === 1) {
+      this.intervalId = setInterval(() => {
+        if (this.time === 1) {
           clearInterval(this.intervalId);
+            this.levelSelected = false;
+            alert(
+              this.playerName + " " + "score" + " " + this.points + " " + "points"
+            );
+            this.playerScore.name = this.playerName;
+            this.playerScore.score = this.points;
+            this.startDisabled = false;
+            this.endDisabled = true;
+            this.playerName = "";
+            this.board = [
+              ["", "", "", "", ""],
+              ["", "", "", "", ""],
+              ["", "", "", "", ""],
+            ];
+            this.points = 0;
         }
         this.time -= 1;
       }, 1000);
-      
     },
 
     toDelete: function () {
@@ -106,11 +125,11 @@ export default {
     },
 
     gameEnd: function () {
-      
       alert(
         this.playerName + " " + "score" + " " + this.points + " " + "points"
       );
-
+      clearInterval(this.intervalId);
+      this.time = null;
       this.startDisabled = false;
       this.endDisabled = true;
       this.playerScore.name = this.playerName;
