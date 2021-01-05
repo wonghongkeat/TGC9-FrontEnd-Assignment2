@@ -21,5 +21,9 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+#app{
+    background-color: lightseagreen;
+    min-height: 100vh;
+}
 </style>

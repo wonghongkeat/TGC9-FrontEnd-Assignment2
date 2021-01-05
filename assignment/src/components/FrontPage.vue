@@ -65,6 +65,7 @@ h1 {
   text-align: center;
   font-family: "VT323", monospace;
   font-size: 80px;
+  margin: 0
 }
 
 button {

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div >
     <button v-on:click="level1">level 1</button>
     <button v-on:click="level2">level 2</button>
     <button v-on:click="level3">level 3</button>
@@ -58,5 +58,6 @@ methods: {
 
 </script>
 
-<style>
+<style scoped>
+
 </style>
