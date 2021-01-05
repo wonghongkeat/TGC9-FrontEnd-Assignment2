@@ -110,7 +110,7 @@ export default {
 
     timer: function () {
       if (this.time != 0) {
-        this.intervalId = setInterval(() => {
+        this.intervalId = setInterval(async() => {
           if (this.time === 0) {
             clearInterval(this.intervalId);
 
@@ -125,6 +125,11 @@ export default {
                 "points"
             );
             this.resetGame();
+               await axios.patch(
+        "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-us03.gitpod.io/" +
+          this.level,
+        this.playerScore
+      );
           }
           this.time -= 1;
         }, 1000);
