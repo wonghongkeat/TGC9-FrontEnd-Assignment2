@@ -13,8 +13,8 @@
               <th>Name</th>
               <th>Score</th>
             </tr>
-      
-            <tr v-for="p in f.player.slice(0,10)" v-bind:key="p.player">
+
+            <tr v-for="p in f.player.slice(0, 10)" v-bind:key="p.player">
               <th>{{ p.name }}</th>
               <th>{{ p.score }}</th>
             </tr>
@@ -62,13 +62,12 @@ export default {
       let filtered = this.levels.filter((eachLevel) => {
         return eachLevel.level.includes(this.level);
       });
-      if (filtered.length>0){
-        filtered[0].player.sort(
-        function(a,b)
-            {return b.score-a.score}
-    );
+      if (filtered.length > 0) {
+        filtered[0].player.sort(function (a, b) {
+          return b.score - a.score;
+        });
       }
-      
+
       return filtered;
     },
   },
@@ -84,7 +83,8 @@ button {
   height: 50px;
 }
 
-#highscore,h2 {
+#highscore,
+h2 {
   text-align: center;
   font-family: "VT323", monospace;
   font-size: 35px;
@@ -101,17 +101,16 @@ button {
 }
 
 table {
-    background-color:hsla(0, 100%, 90%, 0.3);
-    font-family: "VT323", monospace;
- font-size: 30px;
-    margin-left:auto;
-    margin-right:auto;
-    border:2px black solid;
-    width: 60vw;
-    
+  background-color: hsla(0, 100%, 90%, 0.3);
+  font-family: "VT323", monospace;
+  font-size: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 2px black solid;
+  width: 60vw;
 }
 
-tr{
-     border: 1px solid black;
+tr {
+  border: 1px solid black;
 }
 </style>

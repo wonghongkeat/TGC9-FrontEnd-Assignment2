@@ -8,39 +8,40 @@
     />
 
     <div class="score">
-    <h2>Player: {{ playerName }}</h2>
-    <h2>time: {{ time }}</h2>
-    <h2>points:{{ points }}</h2>
+      <h2>Player: {{ playerName }}</h2>
+      <h2>time: {{ time }}</h2>
+      <h2>points:{{ points }}</h2>
     </div>
 
     <div class="table">
-    <table v-if="levelSelected">
-      <tr v-for="(r, row) in board" v-bind:key="row">
-        <td v-for="(c, column) in r" v-bind:key="row * 3 + column">
-          <img class="img"
-            src="./duck.png"
-            v-on:click="toDelete"
-            v-show="board[row][column]"
-          />
-        </td>
-      </tr>
-    </table>
+      <table v-if="levelSelected">
+        <tr v-for="(r, row) in board" v-bind:key="row">
+          <td v-for="(c, column) in r" v-bind:key="row * 3 + column">
+            <img
+              class="img"
+              src="./duck.png"
+              v-on:click="toDelete"
+              v-show="board[row][column]"
+            />
+          </td>
+        </tr>
+      </table>
     </div>
-<div class='gameStart'>
-    <button
-      v-if="levelSelected"
-      v-on:click="
-        timer();
-        randomStart();
-      "
-      :disabled="startDisabled"
-    >
-      start
-    </button>
-    <button v-on:click="gameEnd" :disabled="endDisabled" v-if="levelSelected">
-      End
-    </button>
-</div>
+    <div class="gameStart">
+      <button
+        v-if="levelSelected"
+        v-on:click="
+          timer();
+          randomStart();
+        "
+        :disabled="startDisabled"
+      >
+        start
+      </button>
+      <button v-on:click="gameEnd" :disabled="endDisabled" v-if="levelSelected">
+        End
+      </button>
+    </div>
   </div>
 </template>
 
@@ -118,7 +119,7 @@ export default {
 
     timer: function () {
       if (this.time != 0) {
-        this.intervalId = setInterval(async() => {
+        this.intervalId = setInterval(async () => {
           if (this.time === 0) {
             clearInterval(this.intervalId);
 
@@ -133,11 +134,11 @@ export default {
                 "points"
             );
             this.resetGame();
-               await axios.patch(
-        "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-us03.gitpod.io/" +
-          this.level,
-        this.playerScore
-      );
+            await axios.patch(
+              "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-us03.gitpod.io/" +
+                this.level,
+              this.playerScore
+            );
           }
           this.time -= 1;
         }, 1000);
@@ -176,23 +177,23 @@ export default {
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
 
-.gamepage{
-    text-align:center;
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
+.gamepage {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
-.table{
-    height:65vh;
-    width:80vw;
-    margin-left:auto;
-    margin-right:auto;
+.table {
+  height: 65vh;
+  width: 80vw;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.score{
-    display: flex;
-    justify-content:space-around;
-     font-family: "VT323", monospace;
+.score {
+  display: flex;
+  justify-content: space-around;
+  font-family: "VT323", monospace;
 }
 
 table {
@@ -208,8 +209,8 @@ td {
   height: 100px;
 }
 
-.gameStart{
-    display:flex;
-    justify-content:center
+.gameStart {
+  display: flex;
+  justify-content: center;
 }
 </style>

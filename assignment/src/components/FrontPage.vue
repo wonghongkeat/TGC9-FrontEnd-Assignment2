@@ -62,11 +62,10 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
 
 h1 {
-
   text-align: center;
   font-family: "VT323", monospace;
   font-size: 80px;
-  margin: 0
+  margin: 0;
 }
 
 button {
@@ -76,16 +75,16 @@ button {
   height: 50px;
   border: 2px black solid;
   border-radius: 50px;
-  margin-left: 5px
+  margin-left: 5px;
 }
 
 .assignment {
   text-align: center;
 }
 
-img{
-    height:100px;
-    width:100px
+img {
+  height: 100px;
+  width: 100px;
 }
 </style>
 
