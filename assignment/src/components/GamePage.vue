@@ -1,13 +1,5 @@
 <template>
   <div class="gamepage">
-    <GameLevels
-      :playerScore="playerScore"
-      @diffLevel="diffTime"
-      @levelSelected="levelSelection"
-      @selectedLevel="levelId"
-    />
-    <button v-on:click="cancel">X</button>
-
     <div class="score">
       <h2>Player: {{ playerName }}</h2>
       <h2>time: {{ time }}</h2>
@@ -47,16 +39,12 @@
 </template>
 
 <script>
-import GameLevels from "./GameLevels";
 import axios from "axios";
 
 export default {
-  components: {
-    GameLevels,
-  },
-
   data: function () {
     return {
+      show: true,
       board: [
         ["", "", "", "", ""],
         ["", "", "", "", ""],
@@ -69,48 +57,28 @@ export default {
         name: "",
         score: "",
       },
-
       startDisabled: false,
       endDisabled: true,
-      levelSelected: false,
-      time: null,
       intervalId: null,
-      level: "",
     };
   },
-  props: ["playerName"],
+
+  props: ["playerName", "levelSelected", "time", "level"],
 
   methods: {
-        cancel:function(){
-          this.$emit("playerInputResult", this.gameState = "frontPage")
-          this.nameInput=false
-      },
-    
     resetGame: function () {
       this.time = null;
       this.playerScore.name = this.playerName;
       this.playerScore.score = this.points;
       this.startDisabled = false;
       this.endDisabled = true;
-      //   this.playerName = "";
+      this.playerName = "";
       this.board = [
         ["", "", "", "", ""],
         ["", "", "", "", ""],
         ["", "", "", "", ""],
       ];
       this.points = 0;
-    },
-
-    levelId: function (level) {
-      this.level = level;
-    },
-
-    levelSelection: function (levelSelection) {
-      this.levelSelected = levelSelection;
-    },
-
-    diffTime: function (gameLevelTime) {
-      this.time = gameLevelTime;
     },
 
     randomStart: function () {
@@ -145,6 +113,7 @@ export default {
                 this.level,
               this.playerScore
             );
+            this.$emit("playerInputResult", (this.gameState = "frontPage"));
           }
           this.time -= 1;
         }, 1000);
@@ -175,6 +144,7 @@ export default {
           this.level,
         this.playerScore
       );
+      this.$emit("playerInputResult", (this.gameState = "frontPage"));
     },
   },
 };

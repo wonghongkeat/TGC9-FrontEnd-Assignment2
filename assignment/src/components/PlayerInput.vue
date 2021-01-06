@@ -1,11 +1,11 @@
 <template>
   <div class="playerName">
-    <div v-if="nameInput">
+    <div v-show="nameInput">
       <label>Please enter your Name</label>
       <br />
       <label>E.g XXX</label>
       <br />
-      <input type="text" name="name" v-model="name" v-on:click="input"/>
+      <input type="text" v-model="name" v-on:click="input" />
       <br />
       <p>{{ fault }}</p>
       <button class="submit" v-on:click="newGame">Enter</button>
@@ -18,33 +18,30 @@
 export default {
   data: function () {
     return {
+      show: false,
       fault: "",
-      name:"",
-      nameInput: true
-
+      name: "",
+      nameInput: true,
     };
   },
 
   methods: {
-      cancel:function(){
-          this.$emit("playerInputResult", this.gameState = "frontPage")
-          this.nameInput=false
-      },
+    cancel: function () {
+      this.$emit("playerInputResult", (this.gameState = "frontPage"));
+      this.nameInput = false;
+    },
 
-      input:function(){
-          this.fault = ""
-      },
+    input: function () {
+      this.fault = "";
+    },
 
     newGame: function () {
-      if (
-        this.name === "" ||
-        this.name.length < 3 ||
-        this.name.length > 3
-      ) {
-        this.fault= "please enter valid input"
+      if (this.name === "" || this.name.length < 3 || this.name.length > 3) {
+        this.fault = "please enter valid input";
       } else {
-        this.$emit("playerInputResult", this.gameState = "startGame");
-        this.nameInput = false
+        this.$emit("playerInputResult", (this.gameState = "gameLevel"));
+        this.$emit("playerInputName", this.name);
+        this.nameInput = false;
       }
     },
   },

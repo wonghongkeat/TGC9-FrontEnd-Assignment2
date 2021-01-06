@@ -45,10 +45,9 @@ export default {
   },
 
   methods: {
-            cancel:function(){
-          this.$emit("playerInputResult", this.gameState = "frontPage")
-          this.nameInput=false
-      },
+    cancel: function () {
+      this.$emit("playerInputResult", (this.gameState = "frontPage"));
+    },
 
     levelOne: function () {
       this.level = "1";

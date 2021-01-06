@@ -4,18 +4,38 @@
       <h1>Shoot The Ducks!</h1>
       <img src="./duck.png" />
     </div>
-    <div v-if="gameState=='frontPage'">
+    <div v-if="gameState == 'frontPage'">
       <button v-on:click="newGame">New game</button>
       <button v-on:click="highScore">Highscore</button>
       <button v-on:click="cancel">X</button>
     </div>
     <div>
-    <PlayerInput class="playerName" @playerInputResult='playerInput' v-if="gameState == 'playerInput'"/>
-    </div>
-    <div>
-      <HighScore class="highscore" @playerInputResult='playerInput' v-if="gameState == 'highScore'" />
-      <br />
-      <GamePage :playerName="playerName" @playerInputResult='playerInput' v-if="gameState == 'startGame'" />
+      <HighScore
+        class="highscore"
+        @playerInputResult="playerInput"
+        v-if="gameState == 'highScore'"
+      />
+      <PlayerInput
+        class="playerName"
+        @playerInputName="playerNameInput"
+        @playerInputResult="playerInput"
+        v-if="gameState == 'playerInput'"
+      />
+      <GameLevel
+        @diffLevel="diffTime"
+        @levelSelected="levelSelection"
+        @selectedLevel="levelId"
+        @playerInputResult="playerInput"
+        v-if="gameState == 'gameLevel'"
+      />
+      <GamePage
+        :playerName="playerName"
+        :levelSelected="levelSelected"
+        :time="time"
+        :level="level"
+        @playerInputResult="playerInput"
+        v-if="gameState == 'startGame'"
+      />
     </div>
   </div>
 </template>
@@ -24,28 +44,49 @@
 import HighScore from "./HighScore";
 import GamePage from "./GamePage";
 import PlayerInput from "./PlayerInput";
+import GameLevel from "./GameLevels";
 
 export default {
   components: {
     GamePage,
     HighScore,
-    PlayerInput
+    PlayerInput,
+    GameLevel,
   },
 
   data: function () {
     return {
       gameState: "frontPage",
       playerName: "",
+      levelSelected: true,
+      time: null,
+      level: "",
     };
   },
   methods: {
-      playerInput:function(gameState){
-          this.gameState = gameState
-      },
-    newGame: function(){
-        this.gameState = 'playerInput'
+    levelId: function (level) {
+      this.level = level;
     },
-  
+
+    levelSelection: function (levelSelection) {
+      this.levelSelected = levelSelection;
+    },
+
+    diffTime: function (gameLevelTime) {
+      this.time = gameLevelTime;
+    },
+
+    playerNameInput: function (name) {
+      this.playerName = name;
+    },
+
+    playerInput: function (gameState) {
+      this.gameState = gameState;
+    },
+    newGame: function () {
+      this.gameState = "playerInput";
+    },
+
     highScore: function () {
       this.gameState = "highScore";
     },
@@ -58,7 +99,6 @@ export default {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
-
 
 h1 {
   text-align: center;
@@ -86,13 +126,12 @@ img {
   width: 100px;
 }
 
-.highscore{
-    height:75%;
-    width:80%;
-    border: 2px red solid;
-    margin:auto;
-    top: 20px
-
+.highscore {
+  height: 75%;
+  width: 80%;
+  border: 2px red solid;
+  margin: auto;
+  top: 20px;
 }
 </style>
 
