@@ -26,7 +26,7 @@
       </tr>
     </table>
     </div>
-
+<div class='gameStart'>
     <button
       v-if="levelSelected"
       v-on:click="
@@ -40,7 +40,7 @@
     <button v-on:click="gameEnd" :disabled="endDisabled" v-if="levelSelected">
       End
     </button>
-
+</div>
   </div>
 </template>
 
@@ -183,9 +183,8 @@ export default {
     justify-content: center;
 }
 .table{
-    height:80vh;
+    height:65vh;
     width:80vw;
-    border: red 2px solid;
     margin-left:auto;
     margin-right:auto;
 }
@@ -200,7 +199,6 @@ table {
   text-align: center;
 }
 td {
-  border-bottom: 10px green dashed;
   width: 150px;
   height: 150px;
 }
@@ -208,5 +206,10 @@ td {
 .img {
   width: 100px;
   height: 100px;
+}
+
+.gameStart{
+    display:flex;
+    justify-content:center
 }
 </style>
