@@ -59,5 +59,11 @@ methods: {
 </script>
 
 <style scoped>
+button{
+    border: 2px black solid;
+    border-radius:50px;
+    margin-left:  5px
+}
+
 
 </style>

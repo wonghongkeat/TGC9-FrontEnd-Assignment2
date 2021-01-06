@@ -1,18 +1,23 @@
 <template>
-  <div>
+  <div class="gamepage">
     <GameLevels
       :playerScore="playerScore"
       @diffLevel="diffTime"
       @levelSelected="levelSelection"
       @selectedLevel="levelId"
     />
+
+    <div class="score">
     <h2>Player: {{ playerName }}</h2>
     <h2>time: {{ time }}</h2>
     <h2>points:{{ points }}</h2>
+    </div>
+
+    <div class="table">
     <table v-if="levelSelected">
       <tr v-for="(r, row) in board" v-bind:key="row">
         <td v-for="(c, column) in r" v-bind:key="row * 3 + column">
-          <img
+          <img class="img"
             src="./duck.png"
             v-on:click="toDelete"
             v-show="board[row][column]"
@@ -20,6 +25,8 @@
         </td>
       </tr>
     </table>
+    </div>
+
     <button
       v-if="levelSelected"
       v-on:click="
@@ -33,6 +40,7 @@
     <button v-on:click="gameEnd" :disabled="endDisabled" v-if="levelSelected">
       End
     </button>
+
   </div>
 </template>
 
@@ -165,7 +173,29 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
+
+.gamepage{
+    text-align:center;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.table{
+    height:80vh;
+    width:80vw;
+    border: red 2px solid;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.score{
+    display: flex;
+    justify-content:space-around;
+     font-family: "VT323", monospace;
+}
+
 table {
   text-align: center;
 }
@@ -175,7 +205,7 @@ td {
   height: 150px;
 }
 
-img {
+.img {
   width: 100px;
   height: 100px;
 }

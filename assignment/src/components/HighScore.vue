@@ -8,9 +8,17 @@
         <h2 id="highscore">Highscore</h2>
         <div v-for="f in filteredLevel" v-bind:key="f._id">
           <h2>level: {{ f.level }}</h2>
-          <ul v-for="p in f.player" v-bind:key="p.player">
-            <li>{{ p.name }}: {{ p.score }}</li>
-          </ul>
+          <table>
+            <tr class="heading">
+              <th>Name</th>
+              <th>Score</th>
+            </tr>
+      
+            <tr v-for="p in f.player.slice(0,10)" v-bind:key="p.player">
+              <th>{{ p.name }}</th>
+              <th>{{ p.score }}</th>
+            </tr>
+          </table>
         </div>
       </div>
     </div>
@@ -54,7 +62,13 @@ export default {
       let filtered = this.levels.filter((eachLevel) => {
         return eachLevel.level.includes(this.level);
       });
-
+      if (filtered.length>0){
+        filtered[0].player.sort(
+        function(a,b)
+            {return b.score-a.score}
+    );
+      }
+      
       return filtered;
     },
   },
@@ -70,7 +84,7 @@ button {
   height: 50px;
 }
 
-#highscore {
+#highscore,h2 {
   text-align: center;
   font-family: "VT323", monospace;
   font-size: 35px;
@@ -78,5 +92,26 @@ button {
 
 ul li {
   list-style-type: none;
+}
+
+button {
+  border: 2px black solid;
+  border-radius: 50px;
+  margin-left: 5px;
+}
+
+table {
+    background-color:hsla(0, 100%, 90%, 0.3);
+    font-family: "VT323", monospace;
+ font-size: 30px;
+    margin-left:auto;
+    margin-right:auto;
+    border:2px black solid;
+    width: 60vw;
+    
+}
+
+tr{
+     border: 1px solid black;
 }
 </style>

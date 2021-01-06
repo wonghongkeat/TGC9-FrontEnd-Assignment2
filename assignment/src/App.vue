@@ -25,5 +25,8 @@ export default {
 #app{
     background-color: lightseagreen;
     min-height: 100vh;
+    display:flex;
+    justify-content:space-around;
+    flex-direction:column
 }
 </style>
