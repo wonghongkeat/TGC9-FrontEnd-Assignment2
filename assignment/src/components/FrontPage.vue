@@ -4,16 +4,18 @@
       <h1>Shoot The Ducks!</h1>
       <img src="./duck.png" />
     </div>
-    <div>
+    <div v-if="gameState=='frontPage'">
       <button v-on:click="newGame">New game</button>
       <button v-on:click="highScore">Highscore</button>
       <button v-on:click="cancel">X</button>
     </div>
-    <br />
     <div>
-      <HighScore v-if="gameState == 'highScore'" />
+    <PlayerInput class="playerName" @playerInputResult='playerInput' v-if="gameState == 'playerInput'"/>
+    </div>
+    <div>
+      <HighScore class="highscore" @playerInputResult='playerInput' v-if="gameState == 'highScore'" />
       <br />
-      <GamePage :playerName="playerName" v-if="gameState == 'startGame'" />
+      <GamePage :playerName="playerName" @playerInputResult='playerInput' v-if="gameState == 'startGame'" />
     </div>
   </div>
 </template>
@@ -21,38 +23,34 @@
 <script>
 import HighScore from "./HighScore";
 import GamePage from "./GamePage";
+import PlayerInput from "./PlayerInput";
 
 export default {
   components: {
     GamePage,
     HighScore,
+    PlayerInput
   },
 
   data: function () {
     return {
-      // levels: [],
-      gameState: "",
+      gameState: "frontPage",
       playerName: "",
     };
   },
   methods: {
-    newGame: function () {
-      this.playerName = prompt("Please Enter You name e.g XXX");
-      if (
-        this.playerName === "" ||
-        this.playerName.length < 3 ||
-        this.playerName.length > 3
-      ) {
-        alert("please enter valid input");
-      } else {
-        this.gameState = "startGame";
-      }
+      playerInput:function(gameState){
+          this.gameState = gameState
+      },
+    newGame: function(){
+        this.gameState = 'playerInput'
     },
+  
     highScore: function () {
       this.gameState = "highScore";
     },
     cancel: function () {
-      this.gameState = "";
+      this.gameState = "frontPage";
     },
   },
 };
@@ -60,6 +58,7 @@ export default {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
+
 
 h1 {
   text-align: center;
@@ -85,6 +84,15 @@ button {
 img {
   height: 100px;
   width: 100px;
+}
+
+.highscore{
+    height:75%;
+    width:80%;
+    border: 2px red solid;
+    margin:auto;
+    top: 20px
+
 }
 </style>
 

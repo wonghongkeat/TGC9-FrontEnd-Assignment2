@@ -6,6 +6,7 @@
       @levelSelected="levelSelection"
       @selectedLevel="levelId"
     />
+    <button v-on:click="cancel">X</button>
 
     <div class="score">
       <h2>Player: {{ playerName }}</h2>
@@ -80,6 +81,11 @@ export default {
   props: ["playerName"],
 
   methods: {
+        cancel:function(){
+          this.$emit("playerInputResult", this.gameState = "frontPage")
+          this.nameInput=false
+      },
+    
     resetGame: function () {
       this.time = null;
       this.playerScore.name = this.playerName;

@@ -3,6 +3,7 @@
     <button v-on:click="level1">level 1</button>
     <button v-on:click="level2">level 2</button>
     <button v-on:click="level3">level 3</button>
+    
   </div>
 </template>
 
@@ -28,6 +29,7 @@ export default {
   props: ["playerScore"],
 
   methods: {
+
     level1: function () {
       this.level = this.levels[0]._id;
       this.$emit("selectedLevel", this.level);

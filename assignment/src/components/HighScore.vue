@@ -5,6 +5,7 @@
         <button v-on:click="levelOne">Level 1</button>
         <button v-on:click="levelTwo">Level 2</button>
         <button v-on:click="levelThree">Level 3</button>
+        <button v-on:click="cancel">X</button>
         <h2 id="highscore">Highscore</h2>
         <div v-for="f in filteredLevel" v-bind:key="f._id">
           <h2>level: {{ f.level }}</h2>
@@ -44,6 +45,11 @@ export default {
   },
 
   methods: {
+            cancel:function(){
+          this.$emit("playerInputResult", this.gameState = "frontPage")
+          this.nameInput=false
+      },
+
     levelOne: function () {
       this.level = "1";
     },
