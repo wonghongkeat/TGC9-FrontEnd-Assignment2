@@ -42,8 +42,16 @@
 import axios from "axios";
 
 export default {
+  created: async function () {
+    let response = await axios.get(
+      "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-eu03.gitpod.io/players_score"
+    );
+    this.players_score = response.data;
+  },
+
   data: function () {
     return {
+      players_score: [],
       show: true,
       board: [
         ["", "", "", "", ""],
@@ -56,6 +64,7 @@ export default {
       playerScore: {
         name: "",
         score: "",
+        level: this.gameLevelSelection,
       },
       startDisabled: false,
       endDisabled: true,
@@ -63,9 +72,28 @@ export default {
     };
   },
 
-  props: ["playerName", "levelSelected", "time", "level"],
+  props: [
+    "playerName",
+    "levelSelected",
+    "time",
+    "levelSelection",
+    "gameLevelSelection",
+  ],
 
   methods: {
+    levels_edit: async function () {
+      await axios.patch(
+        "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-eu03.gitpod.io/" +
+          this.levelSelection,
+        this.playerScore
+      );
+    },
+    player_score_create: async function () {
+      await axios.post(
+        "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-eu03.gitpod.io/players_score/create",
+        this.playerScore
+      );
+    },
     resetGame: function () {
       this.time = null;
       this.playerScore.name = this.playerName;
@@ -96,7 +124,6 @@ export default {
         this.intervalId = setInterval(async () => {
           if (this.time === 0) {
             clearInterval(this.intervalId);
-
             this.levelSelected = false;
             alert(
               this.playerName +
@@ -108,11 +135,14 @@ export default {
                 "points"
             );
             this.resetGame();
-            await axios.patch(
-              "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-us03.gitpod.io/" +
-                this.level,
-              this.playerScore
+            this.levels_edit();
+
+            let newPlayer = this.players_score.find(
+              ({ name }) => name === this.playerScore.name
             );
+            if (!newPlayer) {
+              this.player_score_create();
+            }
             this.$emit("playerInputResult", (this.gameState = "frontPage"));
           }
           this.time -= 1;
@@ -139,11 +169,14 @@ export default {
       );
       clearInterval(this.intervalId);
       this.resetGame();
-      await axios.patch(
-        "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-us03.gitpod.io/" +
-          this.level,
-        this.playerScore
+      this.levels_edit();
+
+      let newPlayer = this.players_score.find(
+        ({ name: i }) => i === this.playerScore.name
       );
+      if (!newPlayer) {
+        this.player_score_create();
+      }
       this.$emit("playerInputResult", (this.gameState = "frontPage"));
     },
   },

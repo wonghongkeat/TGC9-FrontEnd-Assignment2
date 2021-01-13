@@ -26,13 +26,15 @@
         @levelSelected="levelSelection"
         @selectedLevel="levelId"
         @playerInputResult="playerInput"
+        @selectedGameLevel="gameLevelSelected"
         v-if="gameState == 'gameLevel'"
       />
       <GamePage
         :playerName="playerName"
         :levelSelected="levelSelected"
         :time="time"
-        :level="level"
+        :levelSelection="level"
+        :gameLevelSelection="gameLevelSelection"
         @playerInputResult="playerInput"
         v-if="gameState == 'startGame'"
       />
@@ -61,9 +63,14 @@ export default {
       levelSelected: true,
       time: null,
       level: "",
+      gameLevelSelection:""
     };
   },
   methods: {
+      gameLevelSelected: function(gameLevel){
+        this.gameLevelSelection = gameLevel;
+      },
+
     levelId: function (level) {
       this.level = level;
     },
