@@ -83,8 +83,15 @@ export default {
   methods: {
     levels_edit: async function () {
       await axios.patch(
-        "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-eu03.gitpod.io/" +
+        "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-eu03.gitpod.io/level/" +
           this.levelSelection,
+        this.playerScore
+      );
+    },
+    player_score_edit: async function () {
+      await axios.patch(
+        "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-eu03.gitpod.io/players_score/" +
+          this.playerScore.name,
         this.playerScore
       );
     },
@@ -134,15 +141,19 @@ export default {
                 " " +
                 "points"
             );
-            this.resetGame();
-            this.levels_edit();
 
-            let newPlayer = this.players_score.find(
-              ({ name }) => name === this.playerScore.name
-            );
-            if (!newPlayer) {
-              this.player_score_create();
-            }
+            // let newPlayer = this.players_score.find(({ name }) => name === this.playerScore.name);
+            // console.log("finding player name")
+            // console.log(newPlayer)
+            // if (newPlayer===false) {
+            this.resetGame();
+             await this.player_score_create();
+             await this.levels_edit();
+            // }else{
+            // this.resetGame();
+            // await this.player_score_edit();
+            // await this.levels_edit();
+            // }
             this.$emit("playerInputResult", (this.gameState = "frontPage"));
           }
           this.time -= 1;
@@ -171,12 +182,15 @@ export default {
       this.resetGame();
       this.levels_edit();
 
-      let newPlayer = this.players_score.find(
-        ({ name: i }) => i === this.playerScore.name
-      );
-      if (!newPlayer) {
-        this.player_score_create();
-      }
+      //   let newPlayer = this.players_score.find(
+      //     ({ name: i }) => i === this.playerScore.name
+      //   );
+      //   if (!newPlayer) {
+      //     this.player_score_create();
+      //   }
+     
+      await this.player_score_edit();
+     
       this.$emit("playerInputResult", (this.gameState = "frontPage"));
     },
   },
