@@ -1,13 +1,13 @@
 <template>
   <div class="gamepage">
     <div class="score">
-      <h2>Player: {{ playerName }}</h2>
-      <h2>time: {{ time }}</h2>
+      <h2>Player: {{ gamePlayerName }}</h2>
+      <h2>time: {{ gameTime }}</h2>
       <h2>points:{{ points }}</h2>
     </div>
 
     <div class="table">
-      <table v-if="levelSelected">
+      <table v-if="gameLevelSelected">
         <tr v-for="(r, row) in board" v-bind:key="row">
           <td v-for="(c, column) in r" v-bind:key="row * 3 + column">
             <img
@@ -22,7 +22,7 @@
     </div>
     <div class="gameStart">
       <button
-        v-if="levelSelected"
+        v-if="gameLevelSelected"
         v-on:click="
           timer();
           randomStart();
@@ -31,7 +31,11 @@
       >
         start
       </button>
-      <button v-on:click="gameEnd" :disabled="endDisabled" v-if="levelSelected">
+      <button
+        v-on:click="gameEnd"
+        :disabled="endDisabled"
+        v-if="gameLevelSelected"
+      >
         End
       </button>
     </div>
@@ -51,6 +55,10 @@ export default {
 
   data: function () {
     return {
+      currentDuck: 0,
+      gamePlayerName: this.playerName,
+      gameLevelSelected: this.levelSelected,
+      gameTime: this.time,
       players_score: [],
       show: true,
       board: [
@@ -102,12 +110,12 @@ export default {
       );
     },
     resetGame: function () {
-      this.time = null;
-      this.playerScore.name = this.playerName;
+      this.gameTime = null;
+      this.playerScore.name = this.gamePlayerName;
       this.playerScore.score = this.points;
       this.startDisabled = false;
       this.endDisabled = true;
-      this.playerName = "";
+      this.gamePlayerName = "";
       this.board = [
         ["", "", "", "", ""],
         ["", "", "", "", ""],
@@ -118,22 +126,33 @@ export default {
 
     randomStart: function () {
       let Xrow = parseInt(Math.random() * (3 - 0) + 0);
-      this.randomNumber = Xrow;
       let Xcolumn = parseInt(Math.random() * (5 - 0) + 0);
-      this.randomNumber2 = Xcolumn;
-      this.board[Xrow][Xcolumn] = true;
+      if (this.currentDuck === Xrow) {
+        if (this.currentDuck === 0) {
+          this.currentDuck = this.currentDuck + 2;
+          this.board[this.currentDuck][Xcolumn] = true;
+        } else if (this.currentDuck === 1 || this.currentDuck === 2) {
+          this.currentDuck = this.currentDuck - 1;
+          this.board[this.currentDuck][Xcolumn] = true;
+        }
+      } else {
+        this.board[Xrow][Xcolumn] = true;
+        this.currentDuck = Xrow;
+      }
+      console.log(this.currentDuck);
+      console.log("newXcolumn" + Xcolumn);
       this.startDisabled = true;
       this.endDisabled = false;
     },
 
     timer: function () {
-      if (this.time != 0) {
+      if (this.gameTime != 0) {
         this.intervalId = setInterval(async () => {
-          if (this.time === 0) {
+          if (this.gameTime === 0) {
             clearInterval(this.intervalId);
-            this.levelSelected = false;
+            this.gameLevelSelected = false;
             alert(
-              this.playerName +
+              this.gamePlayerName +
                 " " +
                 "score" +
                 " " +
@@ -143,7 +162,7 @@ export default {
             );
 
             let y = this.players_score;
-            let x = this.playerName;
+            let x = this.gamePlayerName;
             let newPlayer = y.find(({ name }) => name === x);
 
             if (!newPlayer) {
@@ -157,7 +176,7 @@ export default {
             }
             this.$emit("playerInputResult", (this.gameState = "frontPage"));
           }
-          this.time -= 1;
+          this.gameTime -= 1;
         }, 1000);
       }
     },
@@ -177,7 +196,7 @@ export default {
 
     gameEnd: async function () {
       alert(
-        this.playerName + " " + "score" + " " + this.points + " " + "points"
+        this.gamePlayerName + " " + "score" + " " + this.points + " " + "points"
       );
       clearInterval(this.intervalId);
       let y = this.players_score;
@@ -210,8 +229,8 @@ export default {
   justify-content: center;
 }
 .table {
-  height: 65vh;
-  width: 80vw;
+  height: 100%;
+  width: 90vw;
   margin-left: auto;
   margin-right: auto;
 }
@@ -219,7 +238,9 @@ export default {
 .score {
   display: flex;
   justify-content: space-around;
+  align-items: center;
   font-family: "VT323", monospace;
+  height: 50px;
 }
 
 table {
@@ -235,8 +256,11 @@ td {
   height: 100px;
 }
 
+img :hover {
+  cursor: pointer;
+}
+
 .gameStart {
-  display: flex;
-  justify-content: center;
+  margin-top: 10px;
 }
 </style>

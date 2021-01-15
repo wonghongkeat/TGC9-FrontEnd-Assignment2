@@ -1,6 +1,6 @@
 <template>
   <div class="playerName">
-    <div v-show="nameInput">
+    <div>
       <label>Please enter your Name</label>
       <br />
       <label>E.g XXX</label>
@@ -18,17 +18,14 @@
 export default {
   data: function () {
     return {
-      show: false,
       fault: "",
       name: "",
-      nameInput: true,
     };
   },
 
   methods: {
     cancel: function () {
       this.$emit("playerInputResult", (this.gameState = "frontPage"));
-      this.nameInput = false;
     },
 
     input: function () {
@@ -37,11 +34,10 @@ export default {
 
     newGame: function () {
       if (this.name === "" || this.name.length < 3 || this.name.length > 3) {
-        this.fault = "please enter valid input";
+        this.fault = "please enter only 3 characters";
       } else {
         this.$emit("playerInputResult", (this.gameState = "gameLevel"));
         this.$emit("playerInputName", this.name);
-        this.nameInput = false;
       }
     },
   },

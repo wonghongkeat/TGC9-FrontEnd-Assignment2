@@ -4,6 +4,9 @@
       <h1>Shoot The Ducks!</h1>
       <img src="./duck.png" />
     </div>
+    <div v-if="gameState == 'enter'">
+      <button v-on:click="enter">Enter</button>
+    </div>
     <div v-if="gameState == 'frontPage'">
       <button v-on:click="newGame">New game</button>
       <button v-on:click="highScore">Highscore</button>
@@ -58,18 +61,24 @@ export default {
 
   data: function () {
     return {
-      gameState: "frontPage",
+      gameState: "enter",
       playerName: "",
       levelSelected: true,
       time: null,
       level: "",
-      gameLevelSelection:""
+      gameLevelSelection: "",
     };
   },
+
+
   methods: {
-      gameLevelSelected: function(gameLevel){
-        this.gameLevelSelection = gameLevel;
-      },
+    enter: function () {
+      this.gameState = "frontPage";
+    },
+
+    gameLevelSelected: function (gameLevel) {
+      this.gameLevelSelection = gameLevel;
+    },
 
     levelId: function (level) {
       this.level = level;
@@ -90,6 +99,7 @@ export default {
     playerInput: function (gameState) {
       this.gameState = gameState;
     },
+
     newGame: function () {
       this.gameState = "playerInput";
     },
@@ -108,7 +118,7 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
 
 h1 {
-  text-align: center;
+
   font-family: "VT323", monospace;
   font-size: 80px;
   margin: 0;
@@ -133,13 +143,6 @@ img {
   width: 100px;
 }
 
-.highscore {
-  height: 75%;
-  width: 80%;
-  border: 2px red solid;
-  margin: auto;
-  top: 20px;
-}
 </style>
 
 

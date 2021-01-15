@@ -34,7 +34,7 @@ export default {
 
     level1: function () {
       this.level = this.levels[0]._id;
-      this.gameLevel = 1
+      this.gameLevel = 1;
       this.$emit("selectedGameLevel", this.gameLevel);
       this.$emit("selectedLevel", this.level);
       this.$emit("diffLevel", (this.gameLevelTime = 15));

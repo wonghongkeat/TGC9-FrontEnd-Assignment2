@@ -1,27 +1,28 @@
 <template>
   <div id="app">
     <FrontPage/>
-    <!-- <GamePage /> -->
-    <!-- <Test/> -->
+
   </div>
 </template>
 
 <script>
 import FrontPage from "./components/FrontPage"
-// import GamePage from "./components/GamePage";
-// import Test from "./components/Test"
+
 
 export default {
   name: "App",
   components: {
       FrontPage,
-    // GamePage,
-    // Test
+  },
+  data: function () {
+    return {
+    };
   },
 };
 </script>
 
 <style scoped>
+
 #app{
     background-color: lightseagreen;
     min-height: 100vh;

@@ -8,7 +8,7 @@
         <button v-on:click="cancel">X</button>
         <h2 id="highscore">Highscore</h2>
         <div v-for="f in filteredLevel" v-bind:key="f._id">
-          <h2>level: {{ f.level }}</h2>
+          <h2 id="level">level: {{ f.level }}</h2>
           <table>
             <tr class="heading">
               <th>Name</th>
@@ -81,6 +81,10 @@ export default {
 
 <style>
 @import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
+#level {
+  margin: auto;
+}
+
 button {
   font-family: "VT323", monospace;
   font-size: 15px;
