@@ -44,7 +44,7 @@ import axios from "axios";
 export default {
   created: async function () {
     let response = await axios.get(
-      "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-eu03.gitpod.io/players_score"
+      "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-us03.gitpod.io/players_score"
     );
     this.players_score = response.data;
   },
@@ -83,21 +83,21 @@ export default {
   methods: {
     levels_edit: async function () {
       await axios.patch(
-        "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-eu03.gitpod.io/level/" +
+        "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-us03.gitpod.io/level/" +
           this.levelSelection,
         this.playerScore
       );
     },
     player_score_edit: async function () {
       await axios.patch(
-        "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-eu03.gitpod.io/players_score/" +
+        "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-us03.gitpod.io/players_score/" +
           this.playerScore.name,
         this.playerScore
       );
     },
     player_score_create: async function () {
       await axios.post(
-        "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-eu03.gitpod.io/players_score/create",
+        "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-us03.gitpod.io/players_score/create",
         this.playerScore
       );
     },
@@ -142,18 +142,19 @@ export default {
                 "points"
             );
 
-            // let newPlayer = this.players_score.find(({ name }) => name === this.playerScore.name);
-            // console.log("finding player name")
-            // console.log(newPlayer)
-            // if (newPlayer===false) {
-            this.resetGame();
-             await this.player_score_create();
-             await this.levels_edit();
-            // }else{
-            // this.resetGame();
-            // await this.player_score_edit();
-            // await this.levels_edit();
-            // }
+            let y = this.players_score;
+            let x = this.playerName;
+            let newPlayer = y.find(({ name }) => name === x);
+
+            if (!newPlayer) {
+              this.resetGame();
+              await this.player_score_create();
+              await this.levels_edit();
+            } else {
+              this.resetGame();
+              await this.player_score_edit();
+              await this.levels_edit();
+            }
             this.$emit("playerInputResult", (this.gameState = "frontPage"));
           }
           this.time -= 1;
@@ -179,18 +180,20 @@ export default {
         this.playerName + " " + "score" + " " + this.points + " " + "points"
       );
       clearInterval(this.intervalId);
-      this.resetGame();
-      this.levels_edit();
+      let y = this.players_score;
+      let x = this.playerName;
+      let newPlayer = y.find(({ name }) => name === x);
 
-      //   let newPlayer = this.players_score.find(
-      //     ({ name: i }) => i === this.playerScore.name
-      //   );
-      //   if (!newPlayer) {
-      //     this.player_score_create();
-      //   }
-     
-      await this.player_score_edit();
-     
+      if (!newPlayer) {
+        this.resetGame();
+        await this.player_score_create();
+        await this.levels_edit();
+      } else {
+        this.resetGame();
+        await this.player_score_edit();
+        await this.levels_edit();
+      }
+
       this.$emit("playerInputResult", (this.gameState = "frontPage"));
     },
   },

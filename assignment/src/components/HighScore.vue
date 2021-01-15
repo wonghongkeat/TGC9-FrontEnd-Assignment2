@@ -32,7 +32,7 @@ import axios from "axios";
 export default {
   created: async function () {
     let response = await axios.get(
-      "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-eu03.gitpod.io/"
+      "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-us03.gitpod.io/"
     );
     this.levels = response.data;
   },
