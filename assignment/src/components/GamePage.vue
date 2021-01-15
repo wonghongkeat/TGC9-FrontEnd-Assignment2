@@ -48,7 +48,7 @@ import axios from "axios";
 export default {
   created: async function () {
     let response = await axios.get(
-      "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-us03.gitpod.io/players_score"
+      "https://whk-tgc9-assignment2.herokuapp.com/players_score"
     );
     this.players_score = response.data;
   },
@@ -91,21 +91,21 @@ export default {
   methods: {
     levels_edit: async function () {
       await axios.patch(
-        "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-us03.gitpod.io/level/" +
+        "https://whk-tgc9-assignment2.herokuapp.com/level/" +
           this.levelSelection,
         this.playerScore
       );
     },
     player_score_edit: async function () {
       await axios.patch(
-        "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-us03.gitpod.io/players_score/" +
+        "https://whk-tgc9-assignment2.herokuapp.com/players_score/" +
           this.playerScore.name,
         this.playerScore
       );
     },
     player_score_create: async function () {
       await axios.post(
-        "https://3000-dfcbe04c-de1f-4c92-97a7-ec5d4aa86552.ws-us03.gitpod.io/players_score/create",
+        "https://whk-tgc9-assignment2.herokuapp.com/players_score/create",
         this.playerScore
       );
     },
