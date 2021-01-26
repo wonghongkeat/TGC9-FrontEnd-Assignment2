@@ -1,6 +1,6 @@
 # TGC9-FrontEnd-Assignment2
 
-Reactive Frontend Frameworks and RESTful API Development
+Reactive Frontend Frameworks (VueJs) and RESTful API Development
 
 # Shoot The Ducks
 A simple game to shoot the ducks that appear in the farm. This game will train the reaction and clicking accuracy of the players. Creating a fun and enjoyable training environment for first person shooter training.
